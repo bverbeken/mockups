@@ -1,0 +1,12 @@
+# Application dependencies
+
+require:
+    - play
+    - mockups   -> mockups
+
+repositories:
+    - My modules:
+        type:       local
+        artifact:   ${application.path}/../../[module]
+        contains:
+            - mockups

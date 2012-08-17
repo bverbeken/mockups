@@ -1,0 +1,2 @@
+# This file defines all module routes (Higher priority routes first)
+# routes are loaded by the MockupsPlugin -> no need to import them in your app's routes file.
