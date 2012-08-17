@@ -1,7 +1,7 @@
 <ul>
 #{list mockups, as: 'mockup'}
     <li>
-        #{set 'mockupName'}${mockup.getName().minus('.html')}#{/set}
+        #{set 'mockupName'}${mockup.getName()}#{/set}
         <a href="@{show(mockupName)}">${mockupName}</a>
     </li>
 #{/list}

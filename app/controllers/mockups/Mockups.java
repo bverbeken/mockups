@@ -1,6 +1,5 @@
 package controllers.mockups;
 
-import models.mockups.Mockup;
 import play.mvc.Controller;
 import play.mvc.results.RenderTemplate;
 import play.templates.Template;
@@ -10,13 +9,14 @@ import play.vfs.VirtualFile;
 import java.util.HashMap;
 import java.util.List;
 
+import static play.Play.getVirtualFile;
 import static utils.MockupsProperties.getMockupPath;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Mockups extends Controller {
 
     public static void list() {
-        List<VirtualFile> mockups = Mockup.findAllMockups();
+        List<VirtualFile> mockups = getVirtualFile(getMockupPath()).list();
         render(mockups);
     }
 
