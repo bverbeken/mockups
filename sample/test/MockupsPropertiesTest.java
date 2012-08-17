@@ -1,6 +1,5 @@
 import org.junit.Test;
 import play.Play;
-import play.mvc.Http.Response;
 import play.test.UnitTest;
 import utils.MockupsProperties;
 
@@ -39,6 +38,13 @@ public class MockupsPropertiesTest extends UnitTest {
     @Test(expected = IllegalStateException.class)
     public void ifPathContainsSpacesAnExceptionIsThrown(){
         Play.configuration.setProperty(MOCKUPS_PATH, "this is not a path");
+        MockupsProperties.getMockupPath();
+    }
+
+
+    @Test(expected = IllegalStateException.class)
+    public void ifPathIsNotAlphaNumericAnExceptionIsThrown(){
+        Play.configuration.setProperty(MOCKUPS_PATH, "a%[]djklsqd}@#");
         MockupsProperties.getMockupPath();
     }
 

@@ -2,6 +2,8 @@ package utils;
 
 import play.Play;
 
+import static org.apache.commons.lang.StringUtils.isAlphanumeric;
+
 public class MockupsProperties {
 
     public static final String MOCKUPS_PATH = "mockups.path";
@@ -11,13 +13,24 @@ public class MockupsProperties {
         if (path == null) {
             return "/mockups/";
         } else {
-            if (path.contains(" "))
-                throw new IllegalStateException("Path shouldn't contain spaces; please review your mockups.path config property");
-            if (!path.startsWith("/"))
-                path = "/" + path;
-            if (!path.endsWith("/"))
-                path = path + "/";
-            return path;
+            path = addSlashesIfNeeded(path);
+            if (isAlphanumeric(removeSlashes(path))) {
+                return path;
+            } else {
+                throw new IllegalStateException("Path should be alphanumeric; please review your mockups.path config property");
+            }
         }
+    }
+
+    private static String removeSlashes(String path) {
+        return path.substring(1, path.length() - 1);
+    }
+
+    private static String addSlashesIfNeeded(String path) {
+        if (!path.startsWith("/"))
+            path = "/" + path;
+        if (!path.endsWith("/"))
+            path = path + "/";
+        return path;
     }
 }
