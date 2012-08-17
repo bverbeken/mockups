@@ -6,7 +6,6 @@ import play.mvc.results.RenderTemplate;
 import play.templates.Template;
 import play.templates.TemplateLoader;
 import play.vfs.VirtualFile;
-import utils.MockupsProperties;
 
 import java.util.HashMap;
 import java.util.List;
