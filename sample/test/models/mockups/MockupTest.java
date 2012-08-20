@@ -15,4 +15,16 @@ public class MockupTest extends UnitTest {
         Mockup mockup = new Mockup("existingMockup.html");
         assertEquals("existingMockup.html", mockup.getName());
     }
+
+    @Test
+    public void getPath(){
+        Mockup mockup = new Mockup("existingMockup.html");
+        assertEquals("existingMockup.html", mockup.getPath());
+    }
+
+    @Test
+    public void getPath_subDir(){
+        Mockup mockup = new Mockup("subdir/mockup1.html");
+        assertEquals("subdir/mockup1.html", mockup.getPath());
+    }
 }

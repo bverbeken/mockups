@@ -31,18 +31,29 @@ public class Mockup {
         return virtualFile.getName();
     }
 
+    public String getPath() {
+        return virtualFile.relativePath().substring(9);
+    }
+
+    public boolean isDirectory(){
+        return virtualFile.isDirectory();
+    }
 
     public Template getTemplate() {
         return TemplateLoader.load(getFullPath());
     }
 
     public String getFullPath() {
-        return getMockupPath() + getName();
+        return getMockupPath() + getPath();
     }
 
-    public static List<Mockup> allMockups() {
+    public static List<Mockup> allMockups(){
+        return allMockups("");
+    }
+
+    public static List<Mockup> allMockups(String relativeDirectory) {
         List<Mockup> result = new ArrayList<Mockup>();
-        for (VirtualFile virtualFile : getVirtualFile(getMockupPath()).list()) {
+        for (VirtualFile virtualFile : getVirtualFile(getMockupPath() + relativeDirectory).list()) {
             result.add(new Mockup(virtualFile));
         }
         return result;
