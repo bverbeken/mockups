@@ -24,7 +24,7 @@ public class Mockups extends Controller {
         } else {
             Mockup mockup = mockupByName(m);
             if (mockup == null) {
-                throw new NotFound("Template [" + m + "] not found");
+                throw new NotFound("Mockup [" + m + "] not found");
             } else if (mockup.isDirectory()) {
                 List<Mockup> mockups = allMockups(m);
                 render(mockups);
