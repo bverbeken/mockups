@@ -10,8 +10,7 @@ public class MockupsPlugin extends PlayPlugin {
     @Override
     public void onRoutesLoaded() {
         if (Play.mode.isDev()) {
-            addRoute("GET", "/@mockups/?", "mockups.Mockups.list");
-            addRoute("GET", "/@mockups/{mockupName}", "mockups.Mockups.show");
+            addRoute("GET", "/@mockups/?", "mockups.Mockups.show");
         }
     }
 
