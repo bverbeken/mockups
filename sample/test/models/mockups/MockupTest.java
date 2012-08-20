@@ -3,28 +3,25 @@ package models.mockups;
 import org.junit.Test;
 import play.test.UnitTest;
 
-public class MockupTest extends UnitTest {
+import static models.mockups.Mockup.mockupByName;
 
-    @Test(expected = IllegalArgumentException.class)
-    public void constructorWithNameThrowsExceptionIfUnexistingFile() {
-        new Mockup("thisFileDoesNotExist.html");
-    }
+public class MockupTest extends UnitTest {
 
     @Test
     public void getName() {
-        Mockup mockup = new Mockup("existingMockup.html");
+        Mockup mockup = mockupByName("existingMockup.html");
         assertEquals("existingMockup.html", mockup.getName());
     }
 
     @Test
     public void getPath(){
-        Mockup mockup = new Mockup("existingMockup.html");
+        Mockup mockup = mockupByName("existingMockup.html");
         assertEquals("existingMockup.html", mockup.getPath());
     }
 
     @Test
     public void getPath_subDir(){
-        Mockup mockup = new Mockup("subdir/mockup1.html");
+        Mockup mockup = mockupByName("subdir/mockup1.html");
         assertEquals("subdir/mockup1.html", mockup.getPath());
     }
 }

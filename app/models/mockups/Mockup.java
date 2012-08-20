@@ -19,14 +19,6 @@ public class Mockup {
         this.virtualFile = virtualFile;
     }
 
-    public Mockup(String mockupName) {
-        String path = getMockupPath() + mockupName;
-        this.virtualFile = Play.getVirtualFile(path);
-        if (virtualFile == null) {
-            throw new IllegalArgumentException("mockup [" + path + "] does not exist");
-        }
-    }
-
     public String getName() {
         return virtualFile.getName();
     }
@@ -35,7 +27,7 @@ public class Mockup {
         return virtualFile.relativePath().substring(9);
     }
 
-    public boolean isDirectory(){
+    public boolean isDirectory() {
         return virtualFile.isDirectory();
     }
 
@@ -47,7 +39,7 @@ public class Mockup {
         return getMockupPath() + getPath();
     }
 
-    public static List<Mockup> allMockups(){
+    public static List<Mockup> allMockups() {
         return allMockups("");
     }
 
@@ -57,6 +49,16 @@ public class Mockup {
             result.add(new Mockup(virtualFile));
         }
         return result;
+    }
+
+    public static Mockup mockupByName(String m) {
+        String path = getMockupPath() + m;
+        VirtualFile virtualFile = Play.getVirtualFile(path);
+        if (virtualFile == null) {
+            return null;
+        } else {
+            return new Mockup(virtualFile);
+        }
     }
 
 }
