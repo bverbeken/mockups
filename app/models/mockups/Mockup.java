@@ -1,7 +1,8 @@
 package models.mockups;
 
 import play.Play;
-import play.templates.Template;
+import play.libs.IO;
+import play.libs.MimeTypes;
 import play.templates.TemplateLoader;
 import play.vfs.VirtualFile;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import static play.Play.getVirtualFile;
 import static utils.MockupsProperties.getMockupPath;
 
-public class Mockup implements Comparable<Mockup>{
+public class Mockup implements Comparable<Mockup> {
 
     private VirtualFile virtualFile;
 
@@ -32,8 +33,17 @@ public class Mockup implements Comparable<Mockup>{
         return virtualFile.isDirectory();
     }
 
-    public Template getTemplate() {
-        return TemplateLoader.load(virtualFile);
+    public String getContent() {
+        String originalContent = TemplateLoader.load(virtualFile).render();
+        if (getName().endsWith(".html")){
+            return enhanceHtml(originalContent);
+        }
+        return originalContent;
+    }
+
+    private String enhanceHtml(String originalContent) {
+        String ribbon = IO.readContentAsString(Play.getVirtualFile("/app/views/mockups/Mockups/extraInfo.html").getRealFile());
+        return originalContent + ribbon;
     }
 
     public static List<Mockup> allMockups() {
@@ -62,9 +72,13 @@ public class Mockup implements Comparable<Mockup>{
     @Override
     public int compareTo(Mockup that) {
         int result = that.isDirectory().compareTo(this.isDirectory());
-        if (result == 0){
+        if (result == 0) {
             result = this.getName().compareTo(that.getName());
         }
         return result;
+    }
+
+    public String getContentType() {
+        return MimeTypes.getContentType(getName(), "text/plain");
     }
 }
