@@ -17,7 +17,7 @@ public class MockupsProperties {
             if (isAlphanumeric(removeSlashes(path))) {
                 return path;
             } else {
-                throw new IllegalStateException("Path should be alphanumeric; please review your mockups.path config property");
+                throw new IllegalStateException("Path should be alphanumeric; please review your mockups.path config property (current value: " + path + ")");
             }
         }
     }
