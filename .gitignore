@@ -16,3 +16,4 @@ eclipse
 server.pid
 *.pyc
 *.iws
+lib
