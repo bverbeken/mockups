@@ -35,16 +35,17 @@ public class Mockup implements Comparable<Mockup> {
 
     public String getContent() {
         String originalContent = TemplateLoader.load(virtualFile).render();
-        if (getName().endsWith(".html")){
+        if (getName().endsWith(".html")) {
             return enhanceHtml(originalContent);
         }
         return originalContent;
     }
 
     private String enhanceHtml(String originalContent) {
-        String ribbon = IO.readContentAsString(Play.getVirtualFile("/app/views/mockups/Mockups/extraInfo.html").getRealFile());
-        return originalContent + ribbon;
+        String extraInfo = IO.readContentAsString(Play.getVirtualFile("/app/views/mockups/Mockups/extraInfo.html").getRealFile());
+        return originalContent + extraInfo;
     }
+
 
     public static List<Mockup> allMockups() {
         return allMockups("");
