@@ -82,4 +82,9 @@ public class Mockup implements Comparable<Mockup> {
     public String getContentType() {
         return MimeTypes.getContentType(getName(), "text/plain");
     }
+
+    public String generateThumbnail() {
+        return "/public/mockups/images/folder.png"; // TODO
+    }
+
 }

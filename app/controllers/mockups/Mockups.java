@@ -30,5 +30,9 @@ public class Mockups extends Controller {
         }
     }
 
+    public static void thumbnail(String m){
+        renderText(mockupByName(m).generateThumbnail());
+    }
+
 
 }

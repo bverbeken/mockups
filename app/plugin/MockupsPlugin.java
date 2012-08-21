@@ -11,6 +11,7 @@ public class MockupsPlugin extends PlayPlugin {
     public void onRoutesLoaded() {
         if (Play.mode.isDev()) {
             addRoute("GET", "/@mockups/?", "mockups.Mockups.show");
+            addRoute("GET", "/@mockupThumbnail/?", "mockups.Mockups.thumbnail");
         }
     }
 

@@ -36,13 +36,27 @@
             cursor: hand;
         }
     </style>
+
+    <script src="@{'/public/mockups/js/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+    <script type="text/javascript">
+        $(function () {
+            var getThumbnail = #{jsAction @thumbnail(':mockup') /};
+            $('.box.file').each(function () {
+                var me = $(this);
+                $.get(getThumbnail({mockup:me.data('mockup')}), function (result) {
+                    me.css('background-image', 'url("' + result + '")');
+                });
+            });
+        });
+    </script>
+
 </head>
 <body>
 <div class="container">
 #{list mockups, as: 'mockup'}
-    <div class="box ${mockup.isDirectory() ? 'directory' : 'file'}">
-    %{ mockupName = mockup.getName() }%
-     <a href="@{show(mockup.getPath())}">${mockupName}</a>
+%{ mockupName = mockup.getName() }%
+    <div class="box ${mockup.isDirectory() ? 'directory' : 'file'}" data-mockup="${mockupName}">
+        <a href="@{show(mockup.getPath())}">${mockupName}</a>
     </div>
 #{/list}
 </div>
