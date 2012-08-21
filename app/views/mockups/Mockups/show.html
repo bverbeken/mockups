@@ -1,8 +1,50 @@
-<ul>
+<html>
+<head>
+    <title>Mockups</title>
+    <style type="text/css">
+        div.container {
+            width: 80%;
+            overflow: hidden;
+        }
+
+        div.box {
+            float: left;
+            border: 1px solid #444;
+            margin: 8px;
+            width: 150px;
+            height: 150px;
+            border-radius: 5px;
+            box-shadow: 0 0 6px #888;
+            color: #444;
+            padding: 1em;
+            text-align: center;
+
+            background-repeat: no-repeat;
+            background-position: center 20%;
+        }
+
+        div.box.file {
+            background-image: url("/public/mockups/images/file.png");
+        }
+
+        div.box.directory {
+            background-image: url("public/mockups/images/folder.png");
+        }
+
+        div.box:hover {
+            box-shadow: 0 0 12px #000;
+            cursor: hand;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
 #{list mockups, as: 'mockup'}
-    <li>
+    <div class="box ${mockup.isDirectory() ? 'directory' : 'file'}">
     %{ mockupName = mockup.getName() }%
-        <a href="@{show(mockup.getPath())}">${mockupName}</a>
-    </li>
+     <a href="@{show(mockup.getPath())}">${mockupName}</a>
+    </div>
 #{/list}
-</ul>
+</div>
+</body>
+</html>
