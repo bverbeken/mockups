@@ -48,12 +48,12 @@ public class Mockup implements Comparable<Mockup> {
 
 
     public static List<Mockup> allMockups() {
-        return allMockups("");
+        return allMockups(getMockupPath());
     }
 
     public static List<Mockup> allMockups(String relativeDirectory) {
         List<Mockup> result = new ArrayList<Mockup>();
-        for (VirtualFile virtualFile : getVirtualFile(getMockupPath() + relativeDirectory).list()) {
+        for (VirtualFile virtualFile : getVirtualFile(relativeDirectory).list()) {
             result.add(new Mockup(virtualFile));
         }
         Collections.sort(result);
