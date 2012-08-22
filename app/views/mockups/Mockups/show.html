@@ -17,6 +17,7 @@
             color: #444;
             padding: 10px 10px 20px 10px;
             text-align: center;
+            background-color:#efefef;
         }
 
         div.box a {
@@ -28,20 +29,16 @@
         div.box:hover {
             box-shadow: 0 0 12px #000;
         }
-    </style>
 
-    <script src="@{'/public/mockups/js/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-    <script type="text/javascript">
-        $(function () {
-            var getThumbnail = #{jsAction @thumbnail(':mockup') /};
-            $('.box.file').each(function () {
-                var me = $(this);
-                $.get(getThumbnail({mockup:me.data('mockup')}), function (result) {
-                      me.find(".thumbnail").attr('src', result);
-                });
-            });
-        });
-    </script>
+        .thumbnail {
+            border: 1px solid #555;
+            padding: 5px;
+            background-color: white;
+            width: 120px;
+            height: 120px;
+        }
+
+    </style>
 
 </head>
 <body>
