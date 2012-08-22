@@ -13,27 +13,20 @@
             margin: 8px;
             width: 150px;
             height: 150px;
-            border-radius: 5px;
             box-shadow: 0 0 6px #888;
             color: #444;
-            padding: 1em;
+            padding: 10px 10px 20px 10px;
             text-align: center;
-
-            background-repeat: no-repeat;
-            background-position: center 20%;
         }
 
-        div.box.file {
-            background-image: url("/public/mockups/images/file.png");
-        }
-
-        div.box.directory {
-            background-image: url("public/mockups/images/folder.png");
+        div.box a {
+            color: #444;
+            font-weight: bold;
+            text-decoration: none;
         }
 
         div.box:hover {
             box-shadow: 0 0 12px #000;
-            cursor: hand;
         }
     </style>
 
@@ -44,7 +37,7 @@
             $('.box.file').each(function () {
                 var me = $(this);
                 $.get(getThumbnail({mockup:me.data('mockup')}), function (result) {
-                    me.css('background-image', 'url("' + result + '")');
+                      me.find(".thumbnail").attr('src', result);
                 });
             });
         });
@@ -54,9 +47,17 @@
 <body>
 <div class="container">
 #{list mockups, as: 'mockup'}
-%{ mockupName = mockup.getName() }%
-    <div class="box ${mockup.isDirectory() ? 'directory' : 'file'}" data-mockup="${mockupName}">
-        <a href="@{show(mockup.getPath())}">${mockupName}</a>
+    <div class="box ${mockup.isDirectory() ? 'directory' : 'file'}" data-mockup="${mockup.getPath()}">
+        <a href="@{show(mockup.getPath())}">
+            #{if mockup.isDirectory()}
+                <img class="thumbnail" src="@{'/public/mockups/images/folder.png'}"/>
+            #{/if}
+            #{else }
+                <img class="thumbnail" src="@{thumbnail(mockup.getPath())}"/>
+            #{/else}
+            <br/>
+            <span>${mockup.getFileName()}</span>
+        </a>
     </div>
 #{/list}
 </div>

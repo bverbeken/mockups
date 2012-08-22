@@ -21,12 +21,12 @@ public class Mockup implements Comparable<Mockup> {
         this.virtualFile = virtualFile;
     }
 
-    public String getName() {
+    public String getFileName() {
         return virtualFile.getName();
     }
 
     public String getPath() {
-        return virtualFile.relativePath().substring(9);
+        return virtualFile.relativePath();
     }
 
     public Boolean isDirectory() {
@@ -35,7 +35,7 @@ public class Mockup implements Comparable<Mockup> {
 
     public String getContent() {
         String originalContent = TemplateLoader.load(virtualFile).render();
-        if (getName().endsWith(".html")) {
+        if (getFileName().endsWith(".html")) {
             return enhanceHtml(originalContent);
         }
         return originalContent;
@@ -61,8 +61,7 @@ public class Mockup implements Comparable<Mockup> {
     }
 
     public static Mockup mockupByName(String m) {
-        String path = getMockupPath() + m;
-        VirtualFile virtualFile = Play.getVirtualFile(path);
+        VirtualFile virtualFile = Play.getVirtualFile(m);
         if (virtualFile == null) {
             return null;
         } else {
@@ -70,21 +69,22 @@ public class Mockup implements Comparable<Mockup> {
         }
     }
 
+    public String getContentType() {
+        return MimeTypes.getContentType(getFileName(), "text/plain");
+    }
+
+    public String getFullPath() {
+        return "http://localhost:9000/@mockups?m=" + getPath();
+    }
+
     @Override
     public int compareTo(Mockup that) {
         int result = that.isDirectory().compareTo(this.isDirectory());
         if (result == 0) {
-            result = this.getName().compareTo(that.getName());
+            result = this.getFileName().compareTo(that.getFileName());
         }
         return result;
     }
 
-    public String getContentType() {
-        return MimeTypes.getContentType(getName(), "text/plain");
-    }
-
-    public String generateThumbnail() {
-        return "/public/mockups/images/folder.png"; // TODO
-    }
 
 }

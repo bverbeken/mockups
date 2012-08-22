@@ -12,30 +12,36 @@ import static models.mockups.Mockup.mockupByName;
 public class MockupTest extends UnitTest {
 
     @Test
-    public void getName() {
-        Mockup mockup = mockupByName("mockup1.html");
-        assertEquals("mockup1.html", mockup.getName());
+    public void getFileNameInRoot() {
+        Mockup mockup = mockupByName("/mockups/mockup1.html");
+        assertEquals("mockup1.html", mockup.getFileName());
     }
 
     @Test
-    public void getPath() {
-        Mockup mockup = mockupByName("mockup1.html");
-        assertEquals("mockup1.html", mockup.getPath());
+    public void getFileNameInSubDir() {
+        Mockup mockup = mockupByName("/mockups/dir1/mockup12.html");
+        assertEquals("mockup12.html", mockup.getFileName());
     }
 
     @Test
-    public void getPath_subDir() {
-        Mockup mockup = mockupByName("dir1/mockup11.html");
-        assertEquals("dir1/mockup11.html", mockup.getPath());
+    public void getPathInRoot() {
+        Mockup mockup = mockupByName("/mockups/mockup1.html");
+        assertEquals("/mockups/mockup1.html", mockup.getPath());
+    }
+
+    @Test
+    public void getPathInSubdir() {
+        Mockup mockup = mockupByName("/mockups/dir1/mockup11.html");
+        assertEquals("/mockups/dir1/mockup11.html", mockup.getPath());
     }
 
     @Test
     public void ordering() {
 
-        Mockup mockup1 = mockupByName("mockup1.html");
-        Mockup mockup2 = mockupByName("mockup2.html");
-        Mockup dir1 = mockupByName("dir1");
-        Mockup dir2 = mockupByName("dir2");
+        Mockup mockup1 = mockupByName("/mockups/mockup1.html");
+        Mockup mockup2 = mockupByName("/mockups/mockup2.html");
+        Mockup dir1 = mockupByName("/mockups/dir1");
+        Mockup dir2 = mockupByName("/mockups/dir2");
 
         List<Mockup> mockupList = Lists.newArrayList(mockup2, dir1, dir2, mockup1);
         Collections.sort(mockupList);
