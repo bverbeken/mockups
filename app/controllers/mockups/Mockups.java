@@ -2,18 +2,18 @@ package controllers.mockups;
 
 import jobs.mockups.ThumbnailRenderer;
 import models.mockups.Mockup;
+import org.apache.commons.codec.binary.Base64OutputStream;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.results.NotFound;
 
 import javax.imageio.ImageIO;
-import java.io.ByteArrayInputStream;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
-import static javax.imageio.ImageIO.read;
 import static models.mockups.Mockup.allMockups;
 import static models.mockups.Mockup.mockupByName;
 import static org.apache.commons.lang.StringUtils.isBlank;
@@ -40,10 +40,11 @@ public class Mockups extends Controller {
 
     public static void thumbnail(String m) throws IOException {
         File thumbnail = await(new ThumbnailRenderer(mockupByName(m).getFullPath()).now());
-        Http.Response.current().contentType = "image/png";
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(read(thumbnail), "png", byteArrayOutputStream);
-        renderBinary(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+        BufferedImage img = ImageIO.read(thumbnail);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        OutputStream b64 = new Base64OutputStream(os);
+        ImageIO.write(img, "png", b64);
+        renderText("data:image/png;base64," + os.toString("UTF-8"));
     }
 
 }
