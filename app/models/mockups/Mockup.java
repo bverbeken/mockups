@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.apache.commons.lang.StringUtils.removeEnd;
 import static play.Play.getVirtualFile;
 import static utils.MockupsProperties.getMockupPath;
 
@@ -44,6 +45,10 @@ public class Mockup implements Comparable<Mockup> {
     private String enhanceHtml(String originalContent) {
         String extraInfo = IO.readContentAsString(Play.getVirtualFile("/app/views/mockups/Mockups/extraInfo.html").getRealFile());
         return originalContent + extraInfo;
+    }
+
+    public String getTitle(){
+        return removeEnd(getFileName(), ".html");
     }
 
 
