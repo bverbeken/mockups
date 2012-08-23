@@ -58,7 +58,7 @@
 <div class="container">
 #{list mockups, as: 'mockup'}
     <div class="box ${mockup.isDirectory() ? 'directory' : 'file'}" data-mockup="${mockup.getPath()}">
-        <a href="@{show(mockup.getPath())}">
+        <a href="@{show(mockup.getPath(), true)}">
             #{if mockup.isDirectory()}
                 <img class="thumbnail" src="@{'/public/mockups/images/folder.png'}"/>
             #{/if}

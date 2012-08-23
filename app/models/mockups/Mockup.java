@@ -34,9 +34,9 @@ public class Mockup implements Comparable<Mockup> {
         return virtualFile.isDirectory();
     }
 
-    public String getContent() {
+    public String getContent(boolean enhance) {
         String originalContent = TemplateLoader.load(virtualFile).render();
-        if (getFileName().endsWith(".html")) {
+        if (enhance && getFileName().endsWith(".html")) {
             return enhanceHtml(originalContent);
         }
         return originalContent;
@@ -47,7 +47,7 @@ public class Mockup implements Comparable<Mockup> {
         return originalContent + extraInfo;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return removeEnd(getFileName(), ".html");
     }
 
@@ -65,21 +65,13 @@ public class Mockup implements Comparable<Mockup> {
         return result;
     }
 
-    public static Mockup mockupByName(String m) {
-        VirtualFile virtualFile = Play.getVirtualFile(m);
-        if (virtualFile == null) {
-            return null;
-        } else {
-            return new Mockup(virtualFile);
-        }
+    public static Mockup mockupByPath(String path) {
+        VirtualFile virtualFile = Play.getVirtualFile(path);
+        return virtualFile == null ? null : new Mockup(virtualFile);
     }
 
     public String getContentType() {
         return MimeTypes.getContentType(getFileName(), "text/plain");
-    }
-
-    public String getFullPath() {
-        return "http://localhost:9000/@mockups?m=" + getPath();
     }
 
     @Override
