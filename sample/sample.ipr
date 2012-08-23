@@ -164,6 +164,14 @@
       </item>
     </group>
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="bver">
+      <words>
+        <w>phantomjs</w>
+        <w>rasterize</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/sample.iml" filepath="$PROJECT_DIR$/sample.iml" />
