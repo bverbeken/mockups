@@ -1,7 +1,9 @@
 package jobs.mockups;
 
+import play.Play;
 import play.exceptions.UnexpectedException;
 import play.jobs.Job;
+import utils.MockupsProperties;
 
 import java.io.File;
 
@@ -19,8 +21,8 @@ public class ThumbnailRenderer extends Job<File> {
     public File doJobWithResult() {
         String url = absoluteUrl();
         try {
-            String phantomJsExecutable = "/usr/lib/phantomjs-1.6.1-linux-x86_64-dynamic/bin/phantomjs";
-            String rasterizeScript = "/usr/lib/phantomjs-1.6.1-linux-x86_64-dynamic/examples/rasterize.js";
+            String phantomJsExecutable = MockupsProperties.getPhantomJsPath();
+            String rasterizeScript = Play.getVirtualFile("/public/mockups/js/rasterize.js").getRealFile().getAbsolutePath();
             File tmpFile = createTempFile("mockup", ".png");
             new ProcessBuilder(phantomJsExecutable, rasterizeScript, url, tmpFile.getAbsolutePath()).start().waitFor();
             return tmpFile;
@@ -31,7 +33,7 @@ public class ThumbnailRenderer extends Job<File> {
     }
 
     private String absoluteUrl() {
-        return "http://localhost:9000/@mockups?m=" + mockupPath + "&enhance=false";
+        return "http://localhost:9000/@mockups?m=" + mockupPath + "&showRibbon=false";
     }
 
 }

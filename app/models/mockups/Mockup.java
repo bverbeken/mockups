@@ -34,15 +34,15 @@ public class Mockup implements Comparable<Mockup> {
         return virtualFile.isDirectory();
     }
 
-    public String getContent(boolean enhance) {
+    public String getContent(boolean showRibbon) {
         String originalContent = TemplateLoader.load(virtualFile).render();
-        if (enhance && getFileName().endsWith(".html")) {
-            return enhanceHtml(originalContent);
+        if (showRibbon && getFileName().endsWith(".html")) {
+            return addRibbon(originalContent);
         }
         return originalContent;
     }
 
-    private String enhanceHtml(String originalContent) {
+    private String addRibbon(String originalContent) {
         String extraInfo = IO.readContentAsString(Play.getVirtualFile("/app/views/mockups/Mockups/extraInfo.html").getRealFile());
         return originalContent + extraInfo;
     }

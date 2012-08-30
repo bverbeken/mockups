@@ -41,6 +41,7 @@
     </style>
 
     <script src="@{'/public/mockups/js/jquery-1.7.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+    #{if useThumbnails}
     <script type="text/javascript">
         $(function () {
             var getThumbnail = #{jsAction @thumbnail(':mockup') /};
@@ -52,6 +53,7 @@
             });
         });
     </script>
+    #{/if}
 
 </head>
 <body>

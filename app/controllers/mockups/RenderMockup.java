@@ -8,16 +8,16 @@ import play.mvc.results.Result;
 public class RenderMockup extends Result {
 
     private Mockup mockup;
-    private boolean enhance;
+    private boolean showRibbon;
 
-    public RenderMockup(Mockup mockup, boolean enhance) {
+    public RenderMockup(Mockup mockup, boolean showRibbon) {
         this.mockup = mockup;
-        this.enhance = enhance;
+        this.showRibbon = showRibbon;
     }
 
     public void apply(Http.Request request, Http.Response response) {
         try {
-            response.out.write(mockup.getContent(enhance).getBytes(getEncoding()));
+            response.out.write(mockup.getContent(showRibbon).getBytes(getEncoding()));
             setContentTypeIfNotSet(response, mockup.getContentType());
         } catch (Exception e) {
             throw new UnexpectedException(e);

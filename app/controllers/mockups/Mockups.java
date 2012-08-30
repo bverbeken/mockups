@@ -16,23 +16,25 @@ import static javax.imageio.ImageIO.write;
 import static models.mockups.Mockup.allMockups;
 import static models.mockups.Mockup.mockupByPath;
 import static org.apache.commons.lang.StringUtils.isBlank;
+import static utils.MockupsProperties.isPhantomJsEnabled;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Mockups extends Controller {
 
-    public static void show(String m, boolean enhance) {
+    public static void show(String m, boolean showRibbon) {
+        boolean useThumbnails = isPhantomJsEnabled();
         if (isBlank(m)) {
             List<Mockup> mockups = allMockups();
-            render(mockups);
+            render(mockups, useThumbnails);
         } else {
             Mockup mockup = mockupByPath(m);
             if (mockup == null) {
                 throw new NotFound("Mockup [" + m + "] not found");
             } else if (mockup.isDirectory()) {
                 List<Mockup> mockups = allMockups(m);
-                render(mockups);
+                render(mockups, useThumbnails);
             } else {
-                throw new RenderMockup(mockup, enhance);
+                throw new RenderMockup(mockup, showRibbon);
             }
         }
     }

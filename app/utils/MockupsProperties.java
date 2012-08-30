@@ -7,6 +7,7 @@ import static org.apache.commons.lang.StringUtils.isAlphanumeric;
 public class MockupsProperties {
 
     public static final String MOCKUPS_PATH = "mockups.path";
+    public static final String PHANTOM_JS_PATH = "mockups.phantomjs.path";
 
     public static String getMockupPath() {
         String path = Play.configuration.getProperty(MOCKUPS_PATH);
@@ -20,6 +21,15 @@ public class MockupsProperties {
                 throw new IllegalStateException("Path should be alphanumeric; please review your mockups.path config property (current value: " + path + ")");
             }
         }
+    }
+
+    public static boolean isPhantomJsEnabled() {
+        return getPhantomJsPath() != null;
+
+    }
+
+    public static String getPhantomJsPath() {
+        return Play.configuration.getProperty(PHANTOM_JS_PATH);
     }
 
     private static String removeSlashes(String path) {
